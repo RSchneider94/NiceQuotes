@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, View, Button } from 'react-native';
+import Quote from './components/Quote';
 
 const data = [
   {
@@ -24,18 +25,13 @@ export default class App extends Component {
     const quote = data[index];
     let nextIndex = index + 1;
     nextIndex === data.length ? nextIndex = 0 : nextIndex;
-    let previousIndex = index - 1;
-    if(previousIndex < 0) previousIndex = data.length - 1;
+
     return (
       <View style={styles.container}>
-        <Text style={styles.quoteText}>{quote.text}</Text>
-        <Text style={styles.quoteAuthor}>-- {quote.author}</Text>
+        <Quote text={quote.text} author={quote.author} />
         <Button
-            title="Voriges Zitat"
-            onPress={() => this.setState({ index: previousIndex })} />
-        <Button
-            title="Nächstes Zitat"
-            onPress={() => this.setState({ index: nextIndex })} />
+          title="Nächstes Zitat"
+          onPress={() => this.setState({ index: nextIndex })} />
       </View>
     );
   }
