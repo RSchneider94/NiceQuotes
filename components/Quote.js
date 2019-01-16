@@ -7,7 +7,7 @@ export class Quote extends Component {
     return (
       <View>
         <Text style={styles.quoteText}>{text}</Text>
-        <Text style={styles.quoteAuthor}>-- {author}</Text>
+        <Text style={styles.quoteAuthor}>&mdash; {author}</Text>
       </View>
     )
   }
@@ -15,8 +15,9 @@ export class Quote extends Component {
 
 const styles = StyleSheet.create({
   quoteText: {
-    textAlign: 'center',
-    fontSize: 30
+    fontSize: 30,
+    fontStyle: 'italic',
+    textAlign: 'justify'
   },
   quoteAuthor: {
     textAlign: 'right',
