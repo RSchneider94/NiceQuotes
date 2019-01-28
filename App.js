@@ -29,9 +29,11 @@ export default class App extends Component {
     return (
       <View style={styles.container}>
         <Quote text={quote.text} author={quote.author} />
-        <Button
-          title="Nächstes Zitat"
-          onPress={() => this.setState({ index: nextIndex })} />
+        <View style={styles.button}>
+          <Button
+            title="Nächstes Zitat"
+            onPress={() => this.setState({ index: nextIndex })} />
+        </View>
       </View>
     );
   }
@@ -40,10 +42,10 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
+    padding: 20,
     justifyContent: 'center',
-    padding: 20
+    backgroundColor: 'lightgray'
   },
   quoteText: {
     textAlign: 'center',
@@ -53,5 +55,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginTop: 10,
     marginBottom: 60
+  },
+  button: {
+    position: 'absolute',
+    bottom: 60,
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: '#fff'
   }
 });
