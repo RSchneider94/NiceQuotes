@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Button } from 'react-native';
+import Alert from './components/Alert';
 import NewQuote from './components/NewQuote';
 import Quote from './components/Quote';
 
@@ -21,11 +22,23 @@ const data = [
 export default class App extends Component {
   state = {
     index: 0,
+    showAlert: false,
+    alertType: 'success',
     screenNewQuote: false
   }
 
+  _hideAlert = () => {
+    this.setState({showAlert: false});
+  }
+
+  _showAlert = () => {
+    this.setState({showAlert: true});
+    setTimeout(this._hideAlert, 3000);
+  }
+
   _onCancelBehavior = () => {
-    this.setState({ screenNewQuote: false });
+    this.setState({ screenNewQuote: false, alertType: 'warning' });
+    this._showAlert();
   }
 
   render() {
@@ -41,6 +54,9 @@ export default class App extends Component {
             title="Neues Zitat"
             onPress={() => this.setState({ screenNewQuote: true })} />
         </View>
+        <Alert
+          type={this.state.alertType}
+          visible={this.state.showAlert} />
         <NewQuote
           visible={this.state.screenNewQuote}
           onCancel={this._onCancelBehavior} />
