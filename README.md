@@ -1,2 +1,2 @@
 # NiceQuotes
-Simple app for learning purposes from Udemy Course
+Simple app built using React Native (Expo) for learning purposes from Udemy Course

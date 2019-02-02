@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Button } from 'react-native';
+import NewQuote from './components/NewQuote';
 import Quote from './components/Quote';
 
 const data = [
@@ -18,7 +19,14 @@ const data = [
 ];
 
 export default class App extends Component {
-  state = { index: 0 }
+  state = {
+    index: 0,
+    screenNewQuote: false
+  }
+
+  _onCancelBehavior = () => {
+    this.setState({ screenNewQuote: false });
+  }
 
   render() {
     let index = this.state.index;
@@ -28,8 +36,16 @@ export default class App extends Component {
 
     return (
       <View style={styles.container}>
+        <View style={styles.newQuoteButton}>
+          <Button
+            title="Neues Zitat"
+            onPress={() => this.setState({ screenNewQuote: true })} />
+        </View>
+        <NewQuote
+          visible={this.state.screenNewQuote}
+          onCancel={this._onCancelBehavior} />
         <Quote text={quote.text} author={quote.author} />
-        <View style={styles.button}>
+        <View style={styles.nextQuoteButton}>
           <Button
             title="Nächstes Zitat"
             onPress={() => this.setState({ index: nextIndex })} />
@@ -56,7 +72,12 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 60
   },
-  button: {
+  newQuoteButton: {
+    position: 'absolute',
+    top: 50,
+    right: 10
+  },
+  nextQuoteButton: {
     position: 'absolute',
     bottom: 60,
     padding: 10,
