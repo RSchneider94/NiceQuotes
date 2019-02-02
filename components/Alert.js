@@ -22,7 +22,6 @@ styles = StyleSheet.create({
   alertContainer: {
     position: 'absolute',
     top: 120,
-    width: '100%',
     paddingVertical: 10,
     paddingHorizontal: 10,
     borderRadius: 6

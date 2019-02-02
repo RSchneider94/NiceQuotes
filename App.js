@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Button } from 'react-native';
+import { StyleSheet, View, Button, Text } from 'react-native';
 import Alert from './components/Alert';
 import NewQuote from './components/NewQuote';
 import Quote from './components/Quote';
@@ -49,10 +49,13 @@ export default class App extends Component {
 
     return (
       <View style={styles.container}>
-        <View style={styles.newQuoteButton}>
-          <Button
-            title="Neues Zitat"
-            onPress={() => this.setState({ screenNewQuote: true })} />
+        <View style={styles.navbar}>
+          <Text style={styles.headerText}>NiceQuotes</Text>
+          <View style={styles.newQuoteButton}>
+            <Button
+              title="Neues Zitat"
+              onPress={() => this.setState({ screenNewQuote: true })} />
+          </View>
         </View>
         <Alert
           type={this.state.alertType}
@@ -75,9 +78,26 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    padding: 20,
     justifyContent: 'center',
     backgroundColor: '#1b85b8'
+  },
+  navbar: {
+    position: 'absolute',
+    top: 0,
+    width: '100%',
+    height: 100,
+    padding: 0,
+    backgroundColor: '#fff'
+  },
+  headerText: {
+    top: 45,
+    textAlign: 'center',
+    fontSize: 30
+  },
+  newQuoteButton: {
+    position: 'absolute',
+    top: 50,
+    right: 10
   },
   quoteText: {
     textAlign: 'center',
@@ -87,11 +107,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginTop: 10,
     marginBottom: 60
-  },
-  newQuoteButton: {
-    position: 'absolute',
-    top: 50,
-    right: 10
   },
   nextQuoteButton: {
     position: 'absolute',
