@@ -2,12 +2,16 @@ import React, { Component } from 'react'
 import { Modal, View, KeyboardAvoidingView, Button, StyleSheet, TextInput, Text } from 'react-native'
 
 export class NewQuote extends Component {
+  state = { author: null, quote: null };
+
   render() {
+    const { author, quote } = this.state;
+    const { visible, onCancel, onSave } = this.props;
     return (
       <Modal
         animationType="slide"
-        visible={this.props.visible}
-        onRequestClose={() => this.props.onCancel}>
+        visible={visible}
+        onRequestClose={() => onCancel}>
         <KeyboardAvoidingView
           behavior="padding"
           style={styles.container}>
@@ -19,15 +23,18 @@ export class NewQuote extends Component {
                   autoCapitalize="words"
                   placeholder="Autor des Zitates"
                   underlineColorAndroid="transparent"
+                  onChange={text => this.setState({author: text})}
                 />
                 <TextInput
                   style={[styles.input, styles.inputTextArea]}
                   multiline={true}
                   placeholder="Inhalt des Zitates"
                   underlineColorAndroid="transparent"
+                  onChange={text => this.setState({quote: text})}
                 />
-                <Button title="Abbrechen" onPress={this.props.onCancel} />
-                <Button title="Speichern" onPress={this.props.onSave} />
+                <Button title="Abbrechen" onPress={onCancel} />
+                <Button title="Speichern" onPress={() =>
+                  onSave(author, quote)} />
               </View>
             </View>
         </KeyboardAvoidingView>

@@ -21,6 +21,7 @@ const data = [
 
 export default class App extends Component {
   state = {
+    quotes: data,
     index: 0,
     showAlert: false,
     alertType: 'success',
@@ -47,10 +48,11 @@ export default class App extends Component {
   }
 
   render() {
+    const { showAlert, alertType, screenNewQuote, quotes } = this.state;
     let index = this.state.index;
-    const quote = data[index];
+    const quote = quotes[index];
     let nextIndex = index + 1;
-    nextIndex === data.length ? nextIndex = 0 : nextIndex;
+    nextIndex === quotes.length ? nextIndex = 0 : nextIndex;
 
     return (
       <View style={styles.container}>
@@ -63,10 +65,10 @@ export default class App extends Component {
           </View>
         </View>
         <Alert
-          type={this.state.alertType}
-          visible={this.state.showAlert} />
+          type={alertType}
+          visible={showAlert} />
         <NewQuote
-          visible={this.state.screenNewQuote}
+          visible={screenNewQuote}
           onSave={this._onSaveBehavior}
           onCancel={this._onCancelBehavior} />
         <Quote text={quote.text} author={quote.author} />
