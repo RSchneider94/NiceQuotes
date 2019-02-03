@@ -1,17 +1,36 @@
 import React, { Component } from 'react'
-import { Modal, View, Button, StyleSheet, TextInput, Text } from 'react-native'
+import { Modal, View, KeyboardAvoidingView, Button, StyleSheet, TextInput, Text } from 'react-native'
 
 export class NewQuote extends Component {
   render() {
     return (
       <Modal
-        animationType='slide'
+        animationType="slide"
         visible={this.props.visible}
         onRequestClose={() => this.props.onCancel}>
-          <View style={styles.container}>
-            <Button title="Abbrechen" onPress={this.props.onCancel} />
-            <Button title="Speichern" onPress={this.props.onSave} />
-          </View>
+        <KeyboardAvoidingView
+          behavior="padding"
+          style={styles.container}>
+            <View style={styles.container}>
+              <View style={styles.form}>
+                <Text style={styles.formHeader}>Neues Zitat</Text>
+                <TextInput
+                  style={styles.input}
+                  autoCapitalize="words"
+                  placeholder="Autor des Zitates"
+                  underlineColorAndroid="transparent"
+                />
+                <TextInput
+                  style={[styles.input, styles.inputTextArea]}
+                  multiline={true}
+                  placeholder="Inhalt des Zitates"
+                  underlineColorAndroid="transparent"
+                />
+                <Button title="Abbrechen" onPress={this.props.onCancel} />
+                <Button title="Speichern" onPress={this.props.onSave} />
+              </View>
+            </View>
+        </KeyboardAvoidingView>
       </Modal>
     )
   }
@@ -20,9 +39,38 @@ export class NewQuote extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#1b85b8'
+  },
+  form: {
+    width: '90%',
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    borderRadius: 10,
+    backgroundColor: '#fff',
+    shadowColor: '#000',
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity: 0.5
+  },
+  formHeader: {
+    fontSize: 28,
+    textAlign: 'center',
+    textTransform: 'uppercase',
+    marginBottom: 20
+  },
+  input: {
+    width: '100%',
+    height: 60,
+    marginBottom: 10,
+    padding: 20,
+    borderWidth: 2,
+    borderColor: 'rgba(27, 133, 184, 0.5)',
+    borderRadius: 10
+  },
+  inputTextArea: {
+    height: 200
   }
 });
 
