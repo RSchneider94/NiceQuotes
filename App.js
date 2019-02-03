@@ -37,8 +37,10 @@ export default class App extends Component {
     setTimeout(this._hideAlert, 3000);
   }
 
-  _onSaveBehavior = () => {
-    this.setState({ screenNewQuote: false });
+  _onSaveBehavior = (author, text) => {
+    let { quotes } = this.state;
+    quotes.push({ author, text });
+    this.setState({ screenNewQuote: false, quotes });
     this._showAlert('success');
   }
 
@@ -48,11 +50,10 @@ export default class App extends Component {
   }
 
   render() {
-    const { showAlert, alertType, screenNewQuote, quotes } = this.state;
-    let index = this.state.index;
+    const { index, quotes, showAlert, alertType, screenNewQuote } = this.state;
     const quote = quotes[index];
     let nextIndex = index + 1;
-    nextIndex === quotes.length ? nextIndex = 0 : nextIndex;
+    if (nextIndex === quotes.length) nextIndex = 0;
 
     return (
       <View style={styles.container}>
