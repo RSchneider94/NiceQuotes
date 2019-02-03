@@ -9,7 +9,7 @@ export class NewQuote extends Component {
     return (
       <View>
         <Button title="Abbrechen" onPress={this.props.onCancel} />
-        <Button title="Speichern" onPress={() => alert("Test OK!")} />
+        <Button title="Speichern" onPress={this.props.onSave} />
       </View>
     )
   }

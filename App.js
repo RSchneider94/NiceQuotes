@@ -31,14 +31,19 @@ export default class App extends Component {
     this.setState({showAlert: false});
   }
 
-  _showAlert = () => {
-    this.setState({showAlert: true});
+  _showAlert = (alertType) => {
+    this.setState({showAlert: true, alertType: alertType});
     setTimeout(this._hideAlert, 3000);
   }
 
+  _onSaveBehavior = () => {
+    this.setState({ screenNewQuote: false });
+    this._showAlert('success');
+  }
+
   _onCancelBehavior = () => {
-    this.setState({ screenNewQuote: false, alertType: 'warning' });
-    this._showAlert();
+    this.setState({ screenNewQuote: false });
+    this._showAlert('warning');
   }
 
   render() {
@@ -62,6 +67,7 @@ export default class App extends Component {
           visible={this.state.showAlert} />
         <NewQuote
           visible={this.state.screenNewQuote}
+          onSave={this._onSaveBehavior}
           onCancel={this._onCancelBehavior} />
         <Quote text={quote.text} author={quote.author} />
         <View style={styles.nextQuoteButton}>
