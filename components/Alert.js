@@ -18,7 +18,7 @@ export class Alert extends Component {
   }
 }
 
-styles = StyleSheet.create({
+const styles = StyleSheet.create({
   alertContainer: {
     position: 'absolute',
     top: 120,
