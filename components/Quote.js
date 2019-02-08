@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { Text, View, StyleSheet } from 'react-native'
+import React, { Component } from "react";
+import { Text, View, StyleSheet } from "react-native";
 
 export class Quote extends Component {
   render() {
@@ -9,7 +9,7 @@ export class Quote extends Component {
         <Text style={styles.quoteText}>{text}</Text>
         <Text style={styles.quoteAuthor}>&mdash; {author}</Text>
       </View>
-    )
+    );
   }
 }
 
@@ -18,23 +18,23 @@ const styles = StyleSheet.create({
     paddingHorizontal: 50,
     paddingTop: 50,
     borderRadius: 10,
-    backgroundColor: '#fff',
-    shadowColor: '#000',
+    backgroundColor: "#fff",
+    shadowColor: "#000",
     shadowOffset: { width: 1, height: 1 },
     shadowOpacity: 0.5
   },
   quoteText: {
     marginBottom: 20,
     fontSize: 30,
-    fontStyle: 'italic',
-    textAlign: 'auto'
+    fontStyle: "italic",
+    textAlign: "auto"
   },
   quoteAuthor: {
-    textAlign: 'right',
+    textAlign: "right",
     fontSize: 18,
     marginTop: 10,
     marginBottom: 60
   }
 });
 
-export default Quote
+export default Quote;

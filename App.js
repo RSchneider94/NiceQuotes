@@ -1,21 +1,23 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, Button, Text } from 'react-native';
-import Alert from './components/Alert';
-import NewQuote from './components/NewQuote';
-import Quote from './components/Quote';
+import React, { Component } from "react";
+import { StyleSheet, View, Button, Text, AsyncStorage } from "react-native";
+import Alert from "./components/Alert";
+import NewQuote from "./components/NewQuote";
+import Quote from "./components/Quote";
 
 const data = [
   {
-    text: 'Erfolg ist die beste Rache.',
-    author: 'Michael Douglas'
+    text: "Erfolg ist die beste Rache.",
+    author: "Michael Douglas"
   },
   {
-    text: 'Das Geheimnis des Erfolges ist, den Standpunkt des anderen zu verstehen.',
-    author: 'Henry Ford'
+    text:
+      "Das Geheimnis des Erfolges ist, den Standpunkt des anderen zu verstehen.",
+    author: "Henry Ford"
   },
   {
-    text: 'Bei den meisten Erfolgsmenschen ist der Erfolg größer als die Menschlichkeit.',
-    author: 'Daphne du Maurier'
+    text:
+      "Bei den meisten Erfolgsmenschen ist der Erfolg größer als die Menschlichkeit.",
+    author: "Daphne du Maurier"
   }
 ];
 
@@ -24,33 +26,50 @@ export default class App extends Component {
     quotes: data,
     index: 0,
     showAlert: false,
-    alertType: 'success',
+    alertType: "success",
     screenNewQuote: false
-  }
+  };
 
   _hideAlert = () => {
-    this.setState({showAlert: false});
-  }
+    this.setState({ showAlert: false });
+  };
 
-  _showAlert = (alertType) => {
-    this.setState({showAlert: true, alertType: alertType});
+  _showAlert = alertType => {
+    this.setState({ showAlert: true, alertType: alertType });
     setTimeout(this._hideAlert, 3000);
-  }
+  };
+
+  _retrieveData = async () => {
+    let value = await AsyncStorage.getItem("QUOTES");
+    if (value !== null) {
+      value = JSON.parse(value);
+      this.setState({ quotes: value });
+    }
+  };
+
+  _storeData = quotes => {
+    AsyncStorage.setItem("QUOTES", JSON.stringify(quotes));
+  };
 
   _onSaveBehavior = (author, text) => {
     let { quotes } = this.state;
-    if(author && text) {
+    if (author && text) {
       quotes.push({ author, text });
-      this.setState({ screenNewQuote: false, quotes });
-      this._showAlert('success');
+      this._storeData(quotes);
+      this._showAlert("success");
     } else {
-      this._showAlert('warning');
+      this._showAlert("warning");
     }
-  }
+    this.setState({ screenNewQuote: false, quotes });
+  };
 
   _onCancelBehavior = () => {
     this.setState({ screenNewQuote: false });
-    this._showAlert('warning');
+    this._showAlert("warning");
+  };
+
+  componentDidMount() {
+    this._retrieveData();
   }
 
   render() {
@@ -66,21 +85,22 @@ export default class App extends Component {
           <View style={styles.newQuoteButton}>
             <Button
               title="Neues Zitat"
-              onPress={() => this.setState({ screenNewQuote: true })} />
+              onPress={() => this.setState({ screenNewQuote: true })}
+            />
           </View>
         </View>
-        <Alert
-          type={alertType}
-          visible={showAlert} />
+        <Alert type={alertType} visible={showAlert} />
         <NewQuote
           visible={screenNewQuote}
           onSave={this._onSaveBehavior}
-          onCancel={this._onCancelBehavior} />
+          onCancel={this._onCancelBehavior}
+        />
         <Quote text={quote.text} author={quote.author} />
         <View style={styles.nextQuoteButton}>
           <Button
             title="Nächstes Zitat"
-            onPress={() => this.setState({ index: nextIndex })} />
+            onPress={() => this.setState({ index: nextIndex })}
+          />
         </View>
       </View>
     );
@@ -90,30 +110,30 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#1b85b8'
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#1b85b8"
   },
   navbar: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
-    width: '100%',
+    width: "100%",
     height: 100,
     padding: 0,
-    backgroundColor: '#fff'
+    backgroundColor: "#fff"
   },
   headerText: {
     top: 45,
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 30
   },
   newQuoteButton: {
-    position: 'absolute',
+    position: "absolute",
     top: 50,
     right: 10
   },
   quoteText: {
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 30
   },
   quoteAuthor: {
@@ -122,10 +142,10 @@ const styles = StyleSheet.create({
     marginBottom: 60
   },
   nextQuoteButton: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 60,
     padding: 10,
     borderRadius: 10,
-    backgroundColor: '#fff'
+    backgroundColor: "#fff"
   }
 });
