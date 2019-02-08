@@ -39,9 +39,13 @@ export default class App extends Component {
 
   _onSaveBehavior = (author, text) => {
     let { quotes } = this.state;
-    quotes.push({ author, text });
-    this.setState({ screenNewQuote: false, quotes });
-    this._showAlert('success');
+    if(author && text) {
+      quotes.push({ author, text });
+      this.setState({ screenNewQuote: false, quotes });
+      this._showAlert('success');
+    } else {
+      this._showAlert('warning');
+    }
   }
 
   _onCancelBehavior = () => {

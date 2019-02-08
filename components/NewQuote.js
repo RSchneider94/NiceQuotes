@@ -33,8 +33,10 @@ export class NewQuote extends Component {
                   onChangeText={text => this.setState({quote: text})}
                 />
                 <Button title="Abbrechen" onPress={onCancel} />
-                <Button title="Speichern" onPress={() =>
-                  onSave(author, quote)} />
+                <Button title="Speichern" onPress={() => {
+                    this.setState({ author: null, quote: null })
+                    onSave(author, quote)
+                  }} />
               </View>
             </View>
         </KeyboardAvoidingView>
