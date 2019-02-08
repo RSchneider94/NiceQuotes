@@ -23,14 +23,14 @@ export class NewQuote extends Component {
                   autoCapitalize="words"
                   placeholder="Autor des Zitates"
                   underlineColorAndroid="transparent"
-                  onChange={text => this.setState({author: text})}
+                  onChangeText={text => this.setState({author: text})}
                 />
                 <TextInput
                   style={[styles.input, styles.inputTextArea]}
                   multiline={true}
                   placeholder="Inhalt des Zitates"
                   underlineColorAndroid="transparent"
-                  onChange={text => this.setState({quote: text})}
+                  onChangeText={text => this.setState({quote: text})}
                 />
                 <Button title="Abbrechen" onPress={onCancel} />
                 <Button title="Speichern" onPress={() =>
