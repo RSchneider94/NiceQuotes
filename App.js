@@ -60,7 +60,7 @@ export default class App extends Component {
     } else {
       this._showAlert("warning");
     }
-    this.setState({ screenNewQuote: false, quotes });
+    this.setState({ index: quotes.length - 1, screenNewQuote: false, quotes });
   };
 
   _onCancelBehavior = () => {
